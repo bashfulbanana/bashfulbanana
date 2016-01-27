@@ -23,6 +23,13 @@ html, body {
 .side-bar-container {
   padding-top: 50px;
 }
+.navigation-link > h3 {
+  color: #337AB7;
+  cursor: pointer;
+}
+.navigation-link > h3:hover {
+  color: #23527C;
+}
 
 /*
   Message Container Styles  
@@ -33,12 +40,13 @@ html, body {
 }
 
 .message-list {
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
    /*
      subtract height of the message form
      could use jQuery for more dynamic if necessary
    */
-  height: calc(100% - 240px);
+  height: calc(100% - 150px);
 }
 .message-form {
   background-color: white;

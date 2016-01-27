@@ -87,10 +87,10 @@ var MessageEntry = React.createClass({
 var MessageForm = React.createClass({
   localSubmit: function(event) {
     event.preventDefault();
-    var username = this.refs.username.value;
     var messageText = this.refs.message.value;
+    var userId = localStorage.getItem('userId');
     var messageObj = {
-      userId: username,
+      userId: userId,
       text: messageText,
       houseId: 1
     }
@@ -106,8 +106,6 @@ var MessageForm = React.createClass({
     return (
       <div>
         <form className="message-form form-group" ref='messageForm' onSubmit={this.localSubmit}>
-          <label htmlFor="username-input">UserId</label>
-          <input id="username-input" className="form-control" type='text' name='username' ref='username'/>
           <label htmlFor="message-input">Message</label>
           <input name="comment" placeholder={this.randomPlaceholder()} className="form-control" id="message-input" ref='message' />
           <button type="submit" className="btn btn-info submit-message-button text-center">Submit</button>
