@@ -65,7 +65,7 @@ function handleErrors() {
 }
 
 function buildScript(file, watch) {
-  
+
   var props = {
     entries: ['./scripts/' + file],
     debug : true,

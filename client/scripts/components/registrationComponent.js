@@ -94,7 +94,5 @@ var RegistrationContainer = React.createClass ({
   }
 });
 
-
-
 export default RegistrationContainer;
 

@@ -9,22 +9,35 @@ var app = express();
 var db = require('./db/index');
 var cors = require('cors');
 var user = require('./controllers/userController');
+
 var jwt = require('jwt-simple');
 require('dotenv').load();
 
-var Venmo_Client_ID = process.env.venmo_client_ID; 
+var Venmo_Client_ID = process.env.venmo_client_ID;
 var Venmo_Client_SECRET = process.env.venmo_client_secret;
 var Venmo_Callback_URL = 'http://localhost:8080/auth/venmo/callback';
 
 app.set('port', (process.env.PORT || 8080));
 
+var server = app.listen(app.get('port'), function() {
+  console.log('Server started: http://localhost:' + app.get('port') + '/');
+});
+
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('message', function(data) {
+    io.sockets.emit('message', data); // broadcast to all but the sender
+  });
+})
+
 app.use(bodyParser.json());
 app.use('/', express.static(path.join(__dirname, 'client')));
-app.use(cors()); 
+app.use(cors());
 
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(app.router);
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -40,7 +53,6 @@ passport.use(new VenmoStrategy({
     callbackURL: Venmo_Callback_URL
   },
   function(accessToken, refreshToken, venmo, done) {
-    // User.findUserByVenmoID(venmo.id, callback);
     var obj= {}
     obj.name = venmo.displayName;
     obj.venmoName = venmo.displayName;
@@ -57,10 +69,9 @@ passport.use(new VenmoStrategy({
     jtObj.email = venmo.email;
     jtObj.access_token = accessToken;
 
-    
-    
+
     request.get('http://localhost:8080/users/venmo/'+ venmo.id, function(err, resp, body) {
-      if (!err && resp.statusCode == 200) { 
+      if (!err && resp.statusCode == 200) {
         if (JSON.parse(body).length === 0){
 
           request({
@@ -75,13 +86,13 @@ passport.use(new VenmoStrategy({
                 var jwtObj = jwt.encode(JSON.stringify(jtObj), process.env.secret_code);
                 return done(null, jwtObj);
               }
-          });  
+          });
         }
         else {
           request({
             url: 'http://localhost:8080/users', //URL to hit
             method: 'PUT',
-            json: obj 
+            json: obj
           }, function (error, response, body) {
             if (error) {
               return done(error);
@@ -109,9 +120,5 @@ passport.use(new VenmoStrategy({
 ));
 
 require('./config/routes.js')(app, express);
-
-app.listen(app.get('port'), function() {
-  console.log('Server started: http://localhost:' + app.get('port') + '/');
-});
 
 module.exports = app;

@@ -34,9 +34,7 @@ module.exports = {
     var venmo = req.body.venmo;
     var balance = parseFloat(req.body.balance);
     var venmoid = req.body.venmoid;
-
     var params = [name, venmoName, username, email, provider, venmo, balance, venmoid];
-
     userModel.postUser(params, function(err, results) {
       if (err) {
         res.sendStatus(500);
@@ -47,7 +45,6 @@ module.exports = {
   },
   putUser: function (req, res) {
     var params = [req.body.balance, req.body.venmo, req.body.venmoid];
-    
     userModel.putUser(params, function (err, results) {
       if (err) {
         res.sendStatus(500);

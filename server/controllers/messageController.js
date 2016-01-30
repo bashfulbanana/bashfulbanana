@@ -5,6 +5,7 @@ module.exports = {
   get: function(req, res) {
     var token = JSON.parse(jwt.decode(JSON.parse(req.headers.token), process.env.secret_code));
     var params = [token.houseId];
+
     messageModel.get(params, function (err, results) {
       if (err) {
         res.sendStatus(500);
@@ -19,7 +20,7 @@ module.exports = {
       if (err) {
         res.sendStatus(500);
       }
-      res.json(results.insertId);
+      res.json(results);
     });
   }
 }
