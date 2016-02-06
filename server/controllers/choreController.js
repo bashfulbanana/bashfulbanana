@@ -17,7 +17,7 @@ module.exports = {
   post: function (req, res) {
     var token = (jwt.decode(req.headers.token, process.env.secret_code));
     console.log('POST CHORES TOKEN: ', token);   
-    var params = [token.userid, req.body.name, req.body.category, req.body.dueDate, token.houseId];
+    var params = [req.body.userId, req.body.name, req.body.category, req.body.dueDate, token.houseId];
     choreModel.post(params, function (err, results) {
       if (err) {
         res.sendStatus(500);
