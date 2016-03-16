@@ -2,25 +2,26 @@ import React, { PropTypes } from 'react'
 import NavLink from './NavLink'
 
 // linkNames for navbar
-const linkNames = ['Messages', 'Contact Landlord', 'Finances', 'Chores']
+// const linkNames = ['Messages', 'Contact Landlord', 'Finances', 'Chores']
 
 const NavMenu = ({
-  currentView: ui.currentView,
-  isLandlord: ui.isLandlord,
+  currentView,
+  isLandlord,
   changeView,
-  counters
+  counters,
+  links
 }) => (
   <ul className="nav navbar-nav flexbox">
     <li className="flex-children">
       <img src="./images/obie_logo.png" height="30px" />
     </li>
-    {linkNames.map(link => 
+    {links.map(link => 
       <NavLink 
-        onClick={() => changeView(link)}
+        onClick={() => changeView(link.render)}
         currentView={currentView}
         text={link.text}
         key={link.render}
-        count={counters[currentView.render]}
+        count={counters[link.render]}
       />
     )}
     <li>

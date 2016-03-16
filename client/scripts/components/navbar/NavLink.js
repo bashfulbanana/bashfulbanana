@@ -9,23 +9,19 @@ const NavLink = ({
 }) => (
   <li 
     className="inner-flex"
-    style={{
-      fontWeight: currentView === text ? 'bold' : 'normal'
-    }}
     >
-    <a onClick={onClick} >
+    <a 
+      onClick={onClick} 
+      style={{
+        fontWeight: currentView.text === text ? 'bold' : 'normal'
+      }}
+      >
       {text}
       <span className="notification-count">
-        3
+        {count}
       </span>
     </a>
   </li>
 )
-
-// NavLink.propTypes = {
-//   onClick: PropTypes.func.isRequired,
-//   currentView: PropTypes.string.isRequired,
-//   text: PropTypes.string.isRequired
-// }
 
 export default NavLink

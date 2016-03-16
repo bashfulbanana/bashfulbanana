@@ -1,15 +1,33 @@
 import { combineReducers } from 'redux'
-import { changeView } from './ui_reducer'
+import uiReducer from './ui_reducer'
+
+const context = (state, action) => {
+  return {
+    chores: [],
+    finances: {
+      payment: [],
+      bills: []
+    },
+    landlordMessages: [],
+    messages: [],
+    counters: {
+      messages: 4,
+      chores: 1,
+      contact_landlord: 7,
+      finances: 5
+    }
+  }
+}
 
 const rootReducer = combineReducers({
-  changeView
+  ui: uiReducer,
+  context
 });
 
 export default rootReducer
 
 
 /*
-
 exapmle state:
 
 state = {

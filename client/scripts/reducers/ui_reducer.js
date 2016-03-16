@@ -1,11 +1,27 @@
-const INITIAL_STATE = { isLandlord = false, currentView = 'finance' }
+import { viewsObject } from '../components/config/views'
+
+const INITIAL_STATE = { 
+  isLandlord: false,
+  currentView: viewsObject.finances,
+  username: 'Justin Mancherje',
+  house: {
+    code: 'ABES243FSES',
+    name: 'Party House'
+  }
+}
+
+console.log(viewsObject.finances);
 
 // set ui properties on state
-export default changeView = (state = INITIAL_STATE, action) => {
+const uiReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'CHANGE_VIEW':
-      return { ...state, action.payload.view }
+      return Object.assign({}, state, {
+        currentView: action.payload
+      })
     default:
       return state
   }
 }
+
+export default uiReducer

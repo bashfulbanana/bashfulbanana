@@ -1,33 +1,14 @@
 import React, { Component } from 'react'
+import _ from 'underscore'
+
+// redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { changeView } from '../actions/index'
+import { viewsArray } from '../components/config/views'
 
-// navbar components:
+// navbar component:
 import NavMenu from '../components/navbar/NavMenu'
-import views from '../components/config/views'
-
-// TODO: import action creators to update view and manage counters
-
-/*
-
-old state: {
-    newMessages: 0,
-    newLandlordMessages: 0,
-    newFinance: 0,
-    newChores: 0
-  }
-
-old props: {
-  view: 'Finances',
-  changeView: function,
-  isLandlord: boolean,
-  links: [{render:}]
-}
-
-*/
-
-// <NavMenu counters={this.props.counters} ui={this.props.ui} changeView={this.props.changeView} />
 
 class NavBar2 extends Component {
   render() {
@@ -36,10 +17,10 @@ class NavBar2 extends Component {
         <div className="container-fluid col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
           <div className="navbar-header">
             <NavMenu 
-              count={this.props.counters}
+              counters={this.props.counters}
               changeView={this.props.changeView}
-              links={views}
-              currentView={ui.currentView}
+              links={viewsArray}
+              currentView={this.props.ui.currentView}
             />
           </div>
         </div>
@@ -56,6 +37,7 @@ const mapStateToProps = (state) => {
   }
 }
 
+// dispatch actions with props
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ changeView }, dispatch)
 }

@@ -1,32 +1,44 @@
-const views = {
-  PENDING_BILLS: {
+import _ from 'underscore'
+
+const viewsObjectLandlord = {
+  pending_bills: {
     text: 'Pending Bills',
     render: 'pending_bills'
   },
-  NOTIFY: {
+  notify: {
     text: 'Notify',
     render: 'notify'
   },
-  HOUSE_INFO: {
+  house_info: {
     text: 'House Info',
     render: 'house_info'
-  },
-  MESSAGES: {
-    text: 'Messages',
-    render: 'messages'
-  },
-  CHORES: {
-    text: 'Chores',
-    render: 'chores'
-  },
-  FINANCES: {
-    text: 'Finances',
-    render: 'finances'
-  },
-  CONTACT_LANDLORD: {
-    text: 'Contact Landlord',
-    render: 'contact_landlord'
   }
 }
 
-export default views
+export const viewsObject = {
+  messages: {
+    text: 'Messages',
+    render: 'messages'
+  },
+  contact_landlord: {
+    text: 'Contact Landlord',
+    render: 'contact_landlord'
+  },
+  chores: {
+    text: 'Chores',
+    render: 'chores'
+  },
+  finances: {
+    text: 'Finances',
+    render: 'finances'
+  }
+}
+
+export const viewsArray = _.reduce(viewsObject, (array, view) => {
+  array.push(view)
+  return array
+}, [])
+
+
+// export viewsObject
+// export viewsArray
